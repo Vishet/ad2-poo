@@ -72,7 +72,7 @@ public abstract class Sensor implements Serializable {
 
   public void exibirLeituras() {
     if (leituras.isEmpty()) {
-      System.out.println("Não há leituras disponíveis.");
+      System.out.println("O sensor " + id + " não possui leituras.");
     } else {
       System.out.println("Leituras do sensor " + id + ":");
       for (Leitura leitura : leituras) {
