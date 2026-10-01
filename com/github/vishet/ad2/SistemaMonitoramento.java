@@ -67,7 +67,7 @@ public class SistemaMonitoramento implements Serializable {
         ObjectInputStream in = new ObjectInputStream(fileIn)) {
       return (SistemaMonitoramento) in.readObject();
     } catch (IOException | ClassNotFoundException e) {
-      return new SistemaMonitoramento();
+      return null;
     }
   }
 }
