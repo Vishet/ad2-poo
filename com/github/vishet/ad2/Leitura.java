@@ -1,10 +1,11 @@
 package com.github.vishet.ad2;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.github.vishet.ad2.sensor.Sensor.Classificacao;
 
-public class Leitura {
+public class Leitura implements Serializable {
   private int valor;
   private LocalDateTime data;
 

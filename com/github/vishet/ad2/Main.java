@@ -11,7 +11,7 @@ import com.github.vishet.ad2.sensor.SensorQualidadeAr;
 import com.github.vishet.ad2.sensor.SensorTemperatura;
 
 public class Main {
-  public static void main(String[] args) {
+  private static SistemaMonitoramento testarSistema() {
     SistemaMonitoramento sistema = new SistemaMonitoramento();
 
     // Criando sensores
@@ -86,5 +86,36 @@ public class Main {
     } catch (SemLeiturasException e) {
       System.out.println(e.getMessage());
     }
+
+    return sistema;
+  };
+
+  public static void main(String[] args) {
+    if (args.length > 0) {
+      String filePath = args[0];
+      SistemaMonitoramento sistema = SistemaMonitoramento.carregar(filePath);
+
+      if (sistema != null) {
+        System.out.println("Sistema de monitoramento carregado com sucesso!");
+      } else {
+        System.out.println("Erro ao carregar o sistema de monitoramento.");
+        return;
+      }
+
+      System.out.println("\n-----------------------------------\n");
+
+      for (Sensor sensor : sistema.getSensores()) {
+        sensor.exibirLeituras();
+        System.out.println();
+      }
+
+      return;
+    }
+
+    SistemaMonitoramento sistema = testarSistema();
+    if (sistema.salvar() == true)
+      System.out.println("\nSistema de monitoramento salvo com sucesso!");
+    else
+      System.out.println("\nErro ao salvar o sistema de monitoramento.");
   }
 }

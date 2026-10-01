@@ -1,11 +1,12 @@
 package com.github.vishet.ad2.sensor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.github.vishet.ad2.Leitura;
 import com.github.vishet.ad2.excecao.SemLeiturasException;
 
-public abstract class Sensor {
+public abstract class Sensor implements Serializable {
   private String id;
   private String descricaoLocal;
 
