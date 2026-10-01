@@ -46,6 +46,17 @@ public abstract class Sensor {
     }
   }
 
+  public void exibirLeituraMaisRecente() {
+    if (leituras.isEmpty()) {
+      throw new SemLeiturasException("Não há leituras disponíveis.");
+    } else {
+      Leitura leituraMaisRecente = getLeituraMaisRecente();
+      Classificacao classificacao = getClassificacao(leituraMaisRecente);
+      System.out.println("Leitura mais recente do sensor " + id + ":");
+      leituraMaisRecente.exibir(classificacao);
+    }
+  }
+
   public double getMediaLeituras() {
     if (leituras.isEmpty()) {
       throw new SemLeiturasException("Não há leituras disponíveis.");
@@ -64,8 +75,8 @@ public abstract class Sensor {
     } else {
       System.out.println("Leituras do sensor " + id + ":");
       for (Leitura leitura : leituras) {
-        System.out.println("Valor: " + leitura.getValor() + ", Data: " + leitura.getData() +
-            "Classificação: " + getClassificacao(leitura));
+        Classificacao classificacao = getClassificacao(leitura);
+        leitura.exibir(classificacao);
       }
     }
   }
