@@ -52,22 +52,21 @@ public class SistemaMonitoramento implements Serializable {
     return sensoresAnormais;
   }
 
-  public boolean salvar() {
+  public void salvar() {
     try (FileOutputStream fileOut = new FileOutputStream("sistema_monitoramento.ser");
         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
       out.writeObject(this);
     } catch (IOException e) {
-      return false;
+      throw new RuntimeException("Erro ao salvar o sistema de monitoramento: " + e.getMessage());
     }
-    return true;
   }
 
   public static SistemaMonitoramento carregar(String filePath) {
-    try (FileInputStream fileIn = new FileInputStream("sistema_monitoramento.ser");
+    try (FileInputStream fileIn = new FileInputStream(filePath);
         ObjectInputStream in = new ObjectInputStream(fileIn)) {
       return (SistemaMonitoramento) in.readObject();
     } catch (IOException | ClassNotFoundException e) {
-      return null;
+      throw new RuntimeException("Erro ao carregar o sistema de monitoramento: " + e.getMessage());
     }
   }
 }

@@ -93,29 +93,28 @@ public class Main {
   public static void main(String[] args) {
     if (args.length > 0) {
       String filePath = args[0];
-      SistemaMonitoramento sistema = SistemaMonitoramento.carregar(filePath);
-
-      if (sistema != null) {
+      try {
+        SistemaMonitoramento sistema = SistemaMonitoramento.carregar(filePath);
         System.out.println("Sistema de monitoramento carregado com sucesso!");
-      } else {
-        System.out.println("Erro ao carregar o sistema de monitoramento.");
-        return;
-      }
+        System.out.println("\n-----------------------------------\n");
 
-      System.out.println("\n-----------------------------------\n");
-
-      for (Sensor sensor : sistema.getSensores()) {
-        sensor.exibirLeituras();
-        System.out.println();
+        for (Sensor sensor : sistema.getSensores()) {
+          sensor.exibirLeituras();
+          System.out.println();
+        }
+      } catch (RuntimeException e) {
+        System.out.println(e.getMessage());
       }
 
       return;
     }
 
     SistemaMonitoramento sistema = testarSistema();
-    if (sistema.salvar() == true)
-      System.out.println("\nSistema de monitoramento salvo com sucesso!");
-    else
-      System.out.println("\nErro ao salvar o sistema de monitoramento.");
+    try {
+      sistema.salvar();
+    } catch (RuntimeException e) {
+      System.out.println(e.getMessage());
+    }
+    System.out.println("\nSistema de monitoramento salvo com sucesso!");
   }
 }
